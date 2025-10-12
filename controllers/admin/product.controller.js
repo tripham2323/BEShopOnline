@@ -54,5 +54,5 @@ module.exports.changeStatus = async (req, res) => {
 
   await Product.updateOne({ _id: id }, { status: status });
 
-  res.redirect("back");
+  res.redirect("/admin/products");
 };
