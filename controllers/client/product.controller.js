@@ -12,7 +12,7 @@ const newProducts = products.map(item => {
   return item;
 });
 
-console.log(newProducts);
+// console.log(newProducts);
 
   res.render("client/pages/products/index", {
     pageTitle: "Danh sách sản phẩm",
@@ -22,7 +22,7 @@ console.log(newProducts);
 
 // [GET] /products/:slug
 module.exports.detail = async (req, res) => {
-  console.log(req.params.slug);
+  // console.log(req.params.slug);
 
   try {
     const find = {
