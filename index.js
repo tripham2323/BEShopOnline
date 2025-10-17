@@ -3,6 +3,7 @@ const methodOverride = require("method-override");
 const flash = require("express-flash");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
+const path = require("path");
 require("dotenv").config();
 
 const database = require("./config/database");
@@ -30,6 +31,13 @@ app.use(cookieParser("keyboard cat"));
 app.use(session({ cookie: { maxAge: 6000 } }));
 app.use(flash());
 // End Flash
+
+// Tiny MCE
+app.use(
+  "/tinymce",
+  express.static(path.join(__dirname, "node_modules", "tinymce"))
+);
+// End TinyMCE
 
 // App locals variables
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
