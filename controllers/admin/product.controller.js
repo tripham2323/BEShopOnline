@@ -1,8 +1,10 @@
 const Product = require("../../models/product.model");
+const ProductCategory = require("../../models/product-category.model");
 const filterStatusHelper = require("../../helpers/filterStatus");
 const searchHelper = require("../../helpers/search");
 const paginationHelper = require("../../helpers/pagination");
 const systemConfig = require("../../config/system");
+const createTreeHelper = require("../../helpers/createTree");
 
 // [GET] /admin/products
 module.exports.index = async (req, res) => {
@@ -35,17 +37,17 @@ module.exports.index = async (req, res) => {
   );
   // End Pagination
 
-  // Sort 
+  // Sort
 
   let sort = {};
 
-  if(req.query.sortKey && req.query.sortValue) {
+  if (req.query.sortKey && req.query.sortValue) {
     sort[req.query.sortKey] = req.query.sortValue;
   } else {
     sort.position = "desc";
   }
 
-  // End Sort 
+  // End Sort
 
   const products = await Product.find(find)
     .sort(sort)
@@ -144,8 +146,17 @@ module.exports.deleteItem = async (req, res) => {
 
 // [GET] /admin/products/create
 module.exports.create = async (req, res) => {
+  let find = {
+    deleted: false
+  };
+
+  const category = await ProductCategory.find(find);
+
+  const newCategory = createTreeHelper.tree(category);
+
   res.render("admin/pages/products/create", {
     pageTitle: "Thêm mới sản phẩm",
+    category: newCategory,
   });
 };
 
@@ -184,9 +195,16 @@ module.exports.edit = async (req, res) => {
 
     const product = await Product.findOne(find);
 
+    const category = await ProductCategory.find({
+      deleted: false,
+    });
+
+    const newCategory = createTreeHelper.tree(category);
+
     res.render("admin/pages/products/edit", {
       pageTitle: "Chỉnh sửa sản phẩm",
       product: product,
+      category: newCategory
     });
   } catch (error) {
     res.redirect(`${systemConfig.prefixAdmin}/products`);
@@ -220,7 +238,6 @@ module.exports.editPatch = async (req, res) => {
   res.redirect(`${systemConfig.prefixAdmin}/products/edit/${req.params.id}`);
 };
 
-
 // [GET] /admin/products/detail/:id
 module.exports.detail = async (req, res) => {
   try {
@@ -233,7 +250,7 @@ module.exports.detail = async (req, res) => {
 
     res.render("admin/pages/products/detail", {
       pageTitle: product.title,
-      product: product
+      product: product,
     });
   } catch (error) {
     res.redirect(`${systemConfig.prefixAdmin}/products`);
