@@ -273,7 +273,6 @@ a {
     gap: 10px;
 }
 
-/* Tin nhắn đến (bên trái) */
 .inner-incoming {
     align-self: flex-start;
     max-width: 80%;
@@ -295,7 +294,6 @@ a {
     word-wrap: break-word;
 }
 
-/* Tin nhắn đi (bên phải) */
 .inner-outgoing {
     align-self: flex-end;
     text-align: right;
@@ -313,7 +311,6 @@ a {
     word-wrap: break-word;
 }
 
-/* Phần chân form nhập tin nhắn */
 .inner-foot {
     border-top: 1px solid #eee;
     padding: 10px;
