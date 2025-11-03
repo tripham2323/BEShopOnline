@@ -253,3 +253,117 @@ a {
 }
 
 /* End Show Alert */
+
+/* Chat */
+
+.chat {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.inner-body {
+    padding: 15px;
+    max-height: 400px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Tin nhắn đến (bên trái) */
+.inner-incoming {
+    align-self: flex-start;
+    max-width: 80%;
+}
+
+.inner-incoming .inner-name {
+    font-weight: 600;
+    margin-bottom: 3px;
+}
+
+.inner-incoming .inner-content {
+    background: #f3f3f8;
+    color: #333;
+    padding: 10px 14px;
+    border-radius: 12px;
+    border-top-left-radius: 0;
+    display: inline-block;
+    white-space: pre-line;
+    word-wrap: break-word;
+}
+
+/* Tin nhắn đi (bên phải) */
+.inner-outgoing {
+    align-self: flex-end;
+    text-align: right;
+    max-width: 80%;
+}
+
+.inner-outgoing .inner-content {
+    background: #ff5fa2;
+    color: #fff;
+    padding: 10px 14px;
+    border-radius: 12px;
+    border-top-right-radius: 0;
+    display: inline-block;
+    white-space: pre-line;
+    word-wrap: break-word;
+}
+
+/* Phần chân form nhập tin nhắn */
+.inner-foot {
+    border-top: 1px solid #eee;
+    padding: 10px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+}
+
+.inner-form {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 10px;
+}
+
+.inner-form input[type="text"] {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    outline: none;
+    font-size: 15px;
+    transition: border-color 0.2s ease;
+}
+
+.inner-form input[type="text"]:focus {
+    border-color: #ff5fa2;
+}
+
+.inner-form button {
+    background: #ff5fa2;
+    border: none;
+    color: #fff;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.inner-form button:hover {
+    background: #ff4793;
+}
+
+.inner-form i {
+    font-size: 16px;
+}
+
+
+/* End chat  */
