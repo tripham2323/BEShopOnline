@@ -266,7 +266,7 @@ a {
 
 .inner-body {
     padding: 15px;
-    max-height: 400px;
+    max-height: 450px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -362,5 +362,15 @@ a {
     font-size: 16px;
 }
 
-
 /* End chat  */
+
+/* Emoji Icon  */
+.tooltip {
+  visibility: hidden;
+}
+
+.tooltip.shown {
+  visibility: visible;
+  opacity: 1;
+}
+/* End Emoji Icon */
