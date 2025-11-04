@@ -4,6 +4,7 @@ const User = require("../../models/user.model");
 module.exports.index = async (req, res) => {
   const userId = res.locals.user.id;
   const fullName = res.locals.user.fullName;
+
   // SocketIO
   _io.once("connection", (socket) => {
     socket.on("CLIENT_SEND_MESSAGE", async (content) => {
@@ -21,6 +22,16 @@ module.exports.index = async (req, res) => {
         content: content,
       });
     });
+
+    // Typing
+    socket.on("CLIENT_SEND_TYPING", (type) => {
+      socket.broadcast.emit("SERVER_RETURN_TYPING", {
+        userId: userId,
+        fullName: fullName,
+        type: type
+      });
+    });
+    // End Typing
   });
   // End SocketIO
 
