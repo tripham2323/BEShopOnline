@@ -76,10 +76,11 @@ if (badgeUserAccept) {
 // END SERVER_RETURN_ACCEPT_FRIEND
 
 // SERVER_RETURN_INFO_ACCEPT_FRIEND
-const dataUsersAccept = document.querySelector("[data-users-accept]");
-if (dataUsersAccept) {
-  const userId = dataUsersAccept.getAttribute("data-users-accept");
-  socket.on("SERVER_RETURN_INFO_ACCEPT_FRIEND", (data) => {
+socket.on("SERVER_RETURN_INFO_ACCEPT_FRIEND", (data) => {
+  // Trang lời mời đã nhận
+  const dataUsersAccept = document.querySelector("[data-users-accept]");
+  if (dataUsersAccept) {
+    const userId = dataUsersAccept.getAttribute("data-users-accept");
     if (userId === data.userId) {
       // Vẽ user ra giao diện
       const div = document.createElement("div");
@@ -88,52 +89,52 @@ if (dataUsersAccept) {
       div.setAttribute("user-id", data.infoUserA._id);
 
       div.innerHTML = `
-        <div class="col-6">
-            <div class="box-user">
-                <div class="inner-avatar">
-                    <img src="/images/avatar.png" alt="${data.infoUserA.fullName}">
-                </div>
-
-                <div class="inner-info">
-                    <div class="inner-name">
-                        ${data.infoUserA.fullName}
-                    </div>
-
-                    <div class="inner-buttons">
-                        <button
-                            class="btn btn-sm btn-primary mr-1"
-                            btn-accept-friend=${data.infoUserA._id}
-                        >
-                            Chấp nhận
-                        </button>
-
-                        <button
-                            class="btn btn-sm btn-secondary mr-1"
-                            btn-refuse-friend="${data.infoUserA._id}"
-                        >
-                            Xóa
-                        </button>
-
-                        <button
-                            class="btn btn-sm btn-secondary mr-1"
-                            btn-deleted-friend=""
-                            disabled=""
-                        >
-                            Đã xóa
-                        </button>
-
-                        <button
-                            class="btn btn-sm btn-primary mr-1"
-                            btn-accepted-friend=""
-                            disabled=""
-                        >
-                            Đã chấp nhận
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-      `;
+          <div class="col-6">
+              <div class="box-user">
+                  <div class="inner-avatar">
+                      <img src="/images/avatar.png" alt="${data.infoUserA.fullName}">
+                  </div>
+  
+                  <div class="inner-info">
+                      <div class="inner-name">
+                          ${data.infoUserA.fullName}
+                      </div>
+  
+                      <div class="inner-buttons">
+                          <button
+                              class="btn btn-sm btn-primary mr-1"
+                              btn-accept-friend=${data.infoUserA._id}
+                          >
+                              Chấp nhận
+                          </button>
+  
+                          <button
+                              class="btn btn-sm btn-secondary mr-1"
+                              btn-refuse-friend="${data.infoUserA._id}"
+                          >
+                              Xóa
+                          </button>
+  
+                          <button
+                              class="btn btn-sm btn-secondary mr-1"
+                              btn-deleted-friend=""
+                              disabled=""
+                          >
+                              Đã xóa
+                          </button>
+  
+                          <button
+                              class="btn btn-sm btn-primary mr-1"
+                              btn-accepted-friend=""
+                              disabled=""
+                          >
+                              Đã chấp nhận
+                          </button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        `;
 
       dataUsersAccept.appendChild(div);
       // Hết vẽ ra giao diện
@@ -148,8 +149,22 @@ if (dataUsersAccept) {
       acceptFriend(buttonAccept);
       // Hết chức năng chấp nhận lời mời kết bạn
     }
-  });
-}
+  }
+
+  // Trang danh sách người dùng
+  const dataUserNotFriend = document.querySelector("[data-users-not-friend]");
+  if (dataUserNotFriend) {
+    const userId = dataUserNotFriend.getAttribute("data-users-not-friend");
+    if (userId == data.userId) {
+      const boxUserRemove = dataUserNotFriend.querySelector(
+        `[user-id='${data.infoUserA._id}']`
+      );
+      if (boxUserRemove) {
+        dataUserNotFriend.removeChild(boxUserRemove);
+      }
+    }
+  }
+});
 // END SERVER_RETURN_INFO_ACCEPT_FRIEND
 
 // SERVER_RETURN_USER_ID_CANCEL_FRIEND
